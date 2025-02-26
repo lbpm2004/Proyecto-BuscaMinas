@@ -9,5 +9,37 @@ package buscaminasproyecto;
  * @author Personal
  */
 public class Nodo {
-    
+    int fila;
+    int columna;
+    Nodo next;
+
+    public Nodo() {
+        this.fila = 0;
+        this.columna = 0;
+        this.next = null;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+
+    public Nodo getNext() {
+        return next;
+    }
+
+    public void setNext(Nodo next) {
+        this.next = next;
+    }    
 }
