@@ -2,15 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package buscaminasproyecto;
 
-import Tablero;
 /**
  *
- * @author Hogar
+ * @author Personal
  */
-
 public class Juego {
     private Tablero tablero; //Tablero tiene el estado del tablero del juego (tiene la logica para manejar lad minas y el conteo de las adyacentes)
     private int minasMarcadas; //minas marcadas por el jugador

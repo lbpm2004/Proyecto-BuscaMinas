@@ -4,11 +4,11 @@
  */
 package buscaminasproyecto;
 
-import java.util.Random; //Para poner las minas aleatoriamente en el tablero
+import java.util.Random;//Para poner las minas aleatoriamente en el tablero
 
 /**
  *
- * @
+ * @author Personal
  */
 public class Tablero {
     private int filas; //num de filas del tablerp
@@ -25,8 +25,8 @@ public Tablero(int filas, int columnas, int minas){
     this.minasLugar = new boolean[filas][columnas]; //Inicializa la matriz
     this.cantidadMinas = new int [filas][columnas]; //Inicializa la matriz
     this.encontradas = new boolean [filas][columnas]; //Inicializa la matriz
-    ponerMinas(); //pone las minas en el tablero
-    //calcularCantidadMinas(); //calcula la cantidad de minas adyacentes
+    this.ponerMinas(); //pone las minas en el tablero
+    //this.calcularCantidadMinas(); //calcula la cantidad de minas adyacentes
 }
 
 private void ponerMinas() {
@@ -104,3 +104,4 @@ public int getColumnas() {
     return columnas; //Numero de columnas
 }
 }
+
