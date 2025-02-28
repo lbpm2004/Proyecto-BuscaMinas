@@ -43,6 +43,7 @@ public class Interfaz1 extends javax.swing.JFrame {
         numMinas = new javax.swing.JTextField();
         exit = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
+        generarTablero = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +101,14 @@ public class Interfaz1 extends javax.swing.JFrame {
             }
         });
 
+        generarTablero.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        generarTablero.setText("Generar tablero");
+        generarTablero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generarTableroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -118,19 +127,22 @@ public class Interfaz1 extends javax.swing.JFrame {
                                 .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(153, 153, 153))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(bienvenida1)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(cantFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(numFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(60, 60, 60)
-                                    .addComponent(cantColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(numColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(generarTablero)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(cantFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(numFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(60, 60, 60)
+                                            .addComponent(cantColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(numColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGap(69, 69, 69)
                                     .addComponent(cantMinas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(numMinas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(bienvenida1)))
+                                    .addComponent(numMinas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 138, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -150,8 +162,10 @@ public class Interfaz1 extends javax.swing.JFrame {
                     .addComponent(numColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(526, 526, 526)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(guardar)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(exit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(generarTablero, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -188,6 +202,14 @@ public class Interfaz1 extends javax.swing.JFrame {
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_guardarActionPerformed
+
+    private void generarTableroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generarTableroActionPerformed
+        // TODO add your handling code here:
+        //Guardamos los datos ingresados en los textField en una variable usando el getText(), el cual retorna String por defecto.
+        int nFilas = Integer.parseInt(numFilas.getText());
+        int nColumnas = Integer.parseInt(numColumnas.getText());
+        int nMinas = Integer.parseInt(numMinas.getText());
+    }//GEN-LAST:event_generarTableroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,6 +255,7 @@ public class Interfaz1 extends javax.swing.JFrame {
     private javax.swing.JLabel cantFilas;
     private javax.swing.JLabel cantMinas;
     private javax.swing.JButton exit;
+    private javax.swing.JButton generarTablero;
     private javax.swing.JButton guardar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField numColumnas;
