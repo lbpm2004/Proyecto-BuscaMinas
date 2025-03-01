@@ -4,23 +4,24 @@
  */
 package buscaminasproyecto;
 
-import GUI.Interfaz1;
 
 /**
- *
- * @author Personal
+ * @author Luis Peña
+ * @colaboradores
  */
-public class BuscaMinasProyecto {
+import GUI.Interfaz;
 
+public class BuscaMinasProyecto {
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-        Interfaz1 inicio = new Interfaz1(); //Creación de la isntancia de clase Interfaz1
-        inicio.setSize(900, 700);
-        inicio.setVisible(true); //Hacemos visible la interfaz
-        inicio.setLocationRelativeTo(null); //La centramos en la pantalla (sin esto aparecería en la esquina)
+        // TODO code application logic here        
+        Interfaz app = new Interfaz(); //Craeción de una instancia de la clase interfaz
+        app.setLocationRelativeTo(null); //método para que la interfaz apareczca centrada
+        app.setVisible(true); //Permite que la interfaz aparezca
+        
         
     }
     

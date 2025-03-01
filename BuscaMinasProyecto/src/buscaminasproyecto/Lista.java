@@ -5,9 +5,10 @@
 package buscaminasproyecto;
 
 /**
- *
- * @author Personal
+ * @author Luis Peña
+ * @colaboradores 
  */
+
 public class Lista {
     Nodo first;
     Nodo last;

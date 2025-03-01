@@ -7,11 +7,11 @@ package buscaminasproyecto;
 import java.util.Random;//Para poner las minas aleatoriamente en el tablero
 
 /**
- *
- * @author Personal
+ * @author Fabiana Rodriguez
+ * @colaboradores 
  */
 public class Tablero {
-    private int filas; //num de filas del tablerp
+    private int filas; //num de filas del tablero
     private int columnas; //num de columnas del tablero
     private int minas; //num de minas en el tablero
     private boolean[][] minasLugar; //matriz para saber si hay una mina en las casillas
