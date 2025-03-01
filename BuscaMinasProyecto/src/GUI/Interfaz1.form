@@ -40,51 +40,62 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
-                          <Component id="titulo" min="-2" pref="471" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="exit" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="guardar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="bienvenida1" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="cantFilas" min="-2" pref="92" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="numFilas" min="-2" pref="96" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                                  <Component id="cantColumnas" min="-2" pref="132" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="numColumnas" min="-2" pref="90" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
-                                  <Component id="cantMinas" min="-2" pref="99" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="numMinas" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                                  <Component id="titulo" min="-2" pref="471" max="-2" attributes="0"/>
                               </Group>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                          <Component id="barrer" min="-2" pref="145" max="-2" attributes="0"/>
-                                          <Component id="ponerBandera" min="-2" max="-2" attributes="0"/>
+                                      <Component id="bienvenida1" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="cantFilas" min="-2" pref="92" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="numFilas" min="-2" pref="96" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                                          <Component id="cantColumnas" min="-2" pref="132" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="numColumnas" min="-2" pref="90" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                                          <Component id="cantMinas" min="-2" pref="99" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="numMinas" min="-2" pref="90" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="texto2" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
-                                      <Component id="quitarBandera" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="generarTablero" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="quitarBandera" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="ponerBandera" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="barrer" min="-2" pref="145" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="generarTablero" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
-                              <Component id="exit" min="-2" pref="100" max="-2" attributes="0"/>
-                              <Component id="guardar" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="casilla" min="-2" max="-2" attributes="0"/>
+                                      <Component id="texto2" alignment="0" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <Component id="texto3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="metodoBFS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="metodoDFS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
+                          <EmptySpace min="0" pref="38" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="44" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -106,20 +117,23 @@
                   <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                   <Component id="texto2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                  <Component id="barrer" min="-2" max="-2" attributes="0"/>
+                  <Component id="casilla" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Component id="texto3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="ponerBandera" min="-2" max="-2" attributes="0"/>
+                  <Component id="metodoBFS" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="quitarBandera" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                  <Component id="generarTablero" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="guardar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="exit" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                  <Component id="metodoDFS" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="280" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="exit" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="guardar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="generarTablero" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="quitarBandera" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="ponerBandera" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="barrer" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -225,6 +239,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Barrer Casilla"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="barrerActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="ponerBandera">
           <Properties>
@@ -233,11 +250,17 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Poner Bandera"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ponerBanderaActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="casilla">
           <Properties>
             <Property name="text" type="java.lang.String" value="Casilla"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="casillaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="quitarBandera">
           <Properties>
@@ -246,11 +269,35 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Quitar Bandera"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quitarBanderaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="texto2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Especificar casilla:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="texto3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Marcar m&#xe9;todo de b&#xfa;squeda:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="metodoBFS">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Breadth-First Search"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="metodoBFSActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JRadioButton" name="metodoDFS">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Depth-First Search"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="metodoDFSActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -46,9 +46,12 @@ public class Interfaz1 extends javax.swing.JFrame {
         generarTablero = new javax.swing.JButton();
         barrer = new javax.swing.JButton();
         ponerBandera = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        casilla = new javax.swing.JTextField();
         quitarBandera = new javax.swing.JButton();
         texto2 = new javax.swing.JLabel();
+        texto3 = new javax.swing.JLabel();
+        metodoBFS = new javax.swing.JRadioButton();
+        metodoDFS = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,16 +119,52 @@ public class Interfaz1 extends javax.swing.JFrame {
 
         barrer.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         barrer.setText("Barrer Casilla");
+        barrer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                barrerActionPerformed(evt);
+            }
+        });
 
         ponerBandera.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         ponerBandera.setText("Poner Bandera");
+        ponerBandera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ponerBanderaActionPerformed(evt);
+            }
+        });
 
-        jTextField1.setText("Casilla");
+        casilla.setText("Casilla");
+        casilla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                casillaActionPerformed(evt);
+            }
+        });
 
         quitarBandera.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         quitarBandera.setText("Quitar Bandera");
+        quitarBandera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitarBanderaActionPerformed(evt);
+            }
+        });
 
         texto2.setText("Especificar casilla:");
+
+        texto3.setText("Marcar método de búsqueda:");
+
+        metodoBFS.setText("Breadth-First Search");
+        metodoBFS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                metodoBFSActionPerformed(evt);
+            }
+        });
+
+        metodoDFS.setText("Depth-First Search");
+        metodoDFS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                metodoDFSActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -133,41 +172,51 @@ public class Interfaz1 extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(guardar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(bienvenida1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cantFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(cantColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(69, 69, 69)
-                                .addComponent(cantMinas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(numMinas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
+                                .addGap(94, 94, 94)
+                                .addComponent(titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(94, 94, 94)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(bienvenida1)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(cantFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(numFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(60, 60, 60)
+                                        .addComponent(cantColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(numColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(69, 69, 69)
+                                        .addComponent(cantMinas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(numMinas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(30, 30, 30)
+                                        .addComponent(quitarBandera)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(ponerBandera)
+                                        .addGap(18, 18, 18)
                                         .addComponent(barrer, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(ponerBandera))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(generarTablero))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(casilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(texto2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(quitarBandera)
-                                    .addComponent(generarTablero)))
-                            .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(guardar))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                                    .addComponent(texto3)
+                                    .addComponent(metodoBFS)
+                                    .addComponent(metodoDFS))))
+                        .addGap(0, 38, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,20 +235,22 @@ public class Interfaz1 extends javax.swing.JFrame {
                 .addGap(68, 68, 68)
                 .addComponent(texto2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(barrer)
+                .addComponent(casilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(texto3)
                 .addGap(18, 18, 18)
-                .addComponent(ponerBandera)
+                .addComponent(metodoBFS)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(quitarBandera, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(generarTablero, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(guardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(exit)
-                .addGap(23, 23, 23))
+                .addComponent(metodoDFS)
+                .addGap(280, 280, 280)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(exit)
+                    .addComponent(guardar)
+                    .addComponent(generarTablero, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(quitarBandera, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ponerBandera)
+                    .addComponent(barrer))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -243,6 +294,30 @@ public class Interfaz1 extends javax.swing.JFrame {
         int nColumnas = Integer.parseInt(numColumnas.getText());
         int nMinas = Integer.parseInt(numMinas.getText());
     }//GEN-LAST:event_generarTableroActionPerformed
+
+    private void casillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_casillaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_casillaActionPerformed
+
+    private void barrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barrerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_barrerActionPerformed
+
+    private void ponerBanderaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ponerBanderaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ponerBanderaActionPerformed
+
+    private void quitarBanderaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarBanderaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quitarBanderaActionPerformed
+
+    private void metodoBFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoBFSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_metodoBFSActionPerformed
+
+    private void metodoDFSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoDFSActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_metodoDFSActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,17 +363,20 @@ public class Interfaz1 extends javax.swing.JFrame {
     private javax.swing.JLabel cantColumnas;
     private javax.swing.JLabel cantFilas;
     private javax.swing.JLabel cantMinas;
+    private javax.swing.JTextField casilla;
     private javax.swing.JButton exit;
     private javax.swing.JButton generarTablero;
     private javax.swing.JButton guardar;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JRadioButton metodoBFS;
+    private javax.swing.JRadioButton metodoDFS;
     private javax.swing.JTextField numColumnas;
     private javax.swing.JTextField numFilas;
     private javax.swing.JTextField numMinas;
     private javax.swing.JButton ponerBandera;
     private javax.swing.JButton quitarBandera;
     private javax.swing.JLabel texto2;
+    private javax.swing.JLabel texto3;
     private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
