@@ -58,7 +58,7 @@ private void calcularCantidadMinas() {
                         int nuevaColumna = j + y; //calcula la nueva columna (calcula la columna de la casilla adyacente sumandole y a j)
                         //VERIFICAR QUE ESTE DENTRO DEL TABLERO
                         if (nuevaFila >= 0 and nuevaFila < filas and nuevaColumna >= 0 and nuevaColumna < columnas) {
-                            cantidadMinas[nuevaFila][nuevaColumna]++; //Si esta dentro del tablero, aumenta el conteo de mias adyacentes de cantidadMinas
+                            cantidadMinas[nuevaFila][nuevaColumna]++; //Si esta dentro del tablero, aumenta el conteo de minas adyacentes de cantidadMinas
                         }
                         
                     }

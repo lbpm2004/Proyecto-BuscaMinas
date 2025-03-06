@@ -16,6 +16,7 @@ public class Casilla extends JToggleButton {
     private int fila;
     private int columna;
     private boolean tieneMina;
+    private boolean tieneBandera;
     private Casilla next; //Apuntador al siguente objeto casilla
     private Lista casillasAdyacentes; //Lista de objetos casillas adyacentes
 
@@ -23,8 +24,9 @@ public class Casilla extends JToggleButton {
     public Casilla(int fila, int columna) {
         this.fila = fila;
         this.columna = columna;
+        this.tieneMina = false; //Por defecto la casilla no tiene mina
+        this.tieneBandera = false; //Por defecto la casilla no tiene bandera
         this.next = null; //Por defecto la casilla apuntará a null
-        this.tieneMina = false; //Por defecto la casilla no tendrá mina
         this.casillasAdyacentes = new Lista(); //Creamos una lista vacía para almacenar las casillas adyacentes
     }
     
@@ -43,18 +45,6 @@ public class Casilla extends JToggleButton {
         return caracter;
     }
 
-    public Lista getCasillasAdyacentes() {
-        return casillasAdyacentes;
-    }
-
-    public boolean getTieneMina() {
-        return tieneMina;
-    }
-
-    public void setTieneMina(boolean tieneMina) {
-        this.tieneMina = tieneMina;
-    }
-
     public int getFila() {
         return fila;
     }
@@ -71,6 +61,19 @@ public class Casilla extends JToggleButton {
         this.columna = columna;
     }
     
+    public boolean getTieneMina() {
+        return tieneMina;
+    }
+
+    public void setTieneMina(boolean tieneMina) {
+        this.tieneMina = tieneMina;
+    }
+    public boolean getTieneBandera() {
+        return tieneBandera;
+    }
+    public void setTieneBandera(boolean tieneBandera) {
+        this.tieneBandera = tieneBandera;
+    }
     public Casilla getNext() {
         return next;
     }
@@ -79,5 +82,8 @@ public class Casilla extends JToggleButton {
         this.next = next;
     }
     
+    public Lista getCasillasAdyacentes() {
+        return casillasAdyacentes;
+    }
 }
 

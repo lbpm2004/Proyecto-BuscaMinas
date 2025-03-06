@@ -40,6 +40,8 @@ public class Interfaz extends javax.swing.JFrame {
     private JButton guardar; //Presionar este botón antes de cerrar el juego para guardar el estado actual del mismo
     //ATRIBUTOS DEL CENTER
     private Casilla[][] tablero; //Matriz de objetos Casilla, y estos son a su vez JToggleButton 
+    private Casilla casillaSeleccionada; //Variable auxiliar para saber si una casilla está seleccionada
+    private int banderasPuestas; //Guardar la cantidad de bandera colocadas en el tablero
     private JPanel center; //Panel central que se actualizará al generar el tablero
 
     /**
@@ -106,8 +108,12 @@ public class Interfaz extends javax.swing.JFrame {
                     if(center != null){
                         remove(center);
                     }
-                    
-                    generarTablero(numFilas, numColumnas, numMinas);
+                    //Evitamos que el usuario modifique el tablero
+                    introdFilas.setEditable(false);
+                    introdColumnas.setEditable(false);
+                    introdMinas.setEditable(false);
+                    GenerarTablero(numFilas, numColumnas, numMinas);
+                    banderasPuestas = 0; //Inicializamos la variable
 
                 }catch (Exception i){
                     JOptionPane.showMessageDialog(null, "El número de filas, columnas y minas debe ser un n° natural.\nLas filas y columnas deben ser >=3 y <=10.\nEl número de minas no puede ser mayor al de casillas.");
@@ -126,14 +132,52 @@ public class Interfaz extends javax.swing.JFrame {
         ponerBandera.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "El botón funciona");
+                //Verificamos que la cantidad de banderas no supere al de las minas
+                if(banderasPuestas >= getIntrodMinas()){
+                    JOptionPane.showMessageDialog(null, "La cantidad de banderas no puede exceder al de las minas.");
+                    casillaSeleccionada.setSelected(false);
+                }else{
+                    //Verificamos que la variable no sea null o al menos una casilla esté seleccionada 
+                    if (casillaSeleccionada == null || casillaSeleccionada.isSelected() == false){
+                        JOptionPane.showMessageDialog(null, "Debes seleccionar una casilla antes de presionar este botón.");
+                    //Verificamos que no tenga bandera la casilla seleccionada
+                    }else if(casillaSeleccionada.getTieneBandera()){
+                        JOptionPane.showMessageDialog(null, "Esta casilla ya tiene una bandera colocada.");
+                    //Después de todas las verificaciones, solo queda poner la bandera
+                    }else{
+                        casillaSeleccionada.setTieneBandera(true);
+                        casillaSeleccionada.setText("🚩");
+                        casillaSeleccionada.setSelected(false);
+                        banderasPuestas++;
+                        revalidate();
+                        repaint();    
+                    }
+                }
             }
         });
         
         quitarBandera.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "El botón funciona");
+                if(banderasPuestas <= 0){
+                    JOptionPane.showMessageDialog(null, "No hay banderas para quitar.");
+                }else{
+                    //Verificamos que la variable no sea null o al menos una casilla esté seleccionada 
+                    if (casillaSeleccionada == null || casillaSeleccionada.isSelected() == false){
+                        JOptionPane.showMessageDialog(null, "Debes seleccionar una casilla antes de presionar este botón.");
+                    //Verificamos que no tenga bandera la casilla seleccionada
+                    }else if(casillaSeleccionada.getTieneBandera() == false){
+                        JOptionPane.showMessageDialog(null, "Esta casilla no tiene una bandera colocada.");
+                    //Después de todas las verificaciones, solo queda poner la bandera
+                    }else{
+                        casillaSeleccionada.setTieneBandera(false);
+                        casillaSeleccionada.setText("");
+                        casillaSeleccionada.setSelected(false);
+                        banderasPuestas--;
+                        revalidate();
+                        repaint();  
+                    }
+                }
             }
         });
         
@@ -165,7 +209,7 @@ public class Interfaz extends javax.swing.JFrame {
     
     
     //Generación del Center del BorderLayout y el tablero con las minas colocadas
-        public void generarTablero(int filas, int columnas, int minas){
+        public void GenerarTablero(int filas, int columnas, int minas){
         JPanel center = new JPanel(new GridLayout(filas, columnas));
         tablero = new Casilla[filas][columnas]; //Inicializamos el tablero como una matriz de Casillas vacías
         for (int i = 0; i < filas; i++) {
@@ -177,13 +221,16 @@ public class Interfaz extends javax.swing.JFrame {
                 center.add(tablero[i][j]); //Añadimos la casilla al JPanel
             }
         }
-        ponerMinas(tablero, filas, columnas, minas); //Llama al método y pone las minas aleatoriamente
+        PonerMinas(tablero, filas, columnas, minas); //Llama al método y pone las minas aleatoriamente
         
         //Método para guardar las casillas adyacentes a otra en una lista
         //Con el primer bucle recorremos cada casilla del tablero
         for (int fila = 0; fila < filas; fila++) {
             for (int columna = 0; columna < columnas; columna++) {
                 Casilla casilla = tablero[fila][columna];
+                casilla.addActionListener(e -> {
+                    casillaSeleccionada = casilla; //PERMITE AÑADIR ACCION A CADA CASILLA
+                });
                 //Con el segundo bucle recorremos cada casilla adyacente haciendo que la fila y columna de nuestra casilla seleccionada le sumemos -1, 0 y 1
                 for (int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
@@ -205,7 +252,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
     
         
-    private void ponerMinas(Casilla[][] tablero, int filas, int columnas, int minas) {
+    private void PonerMinas(Casilla[][] tablero, int filas, int columnas, int minas) {
         Random random = new Random(); //generador de numeros aleatorios
         int minasPuestas = 0; //cantidad de minas puestas en el tablero
         Lista listaMinas = new Lista(); //Inicializamos una instancia de Lista
@@ -219,6 +266,11 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
     }
+
+    public int getIntrodMinas() {
+        int numMinas = Integer.parseInt(introdMinas.getText());
+        return numMinas;
+    }
         
         
         
@@ -226,6 +278,7 @@ public class Interfaz extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             Casilla casilla = (Casilla) e.getSource();
+            Casilla casillaSeleccionada = casilla;
             if(casilla.isSelected()){
                 if(casilla.getTieneMina()){
                     casilla.setText("Mina");
