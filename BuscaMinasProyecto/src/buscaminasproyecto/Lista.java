@@ -10,8 +10,8 @@ package buscaminasproyecto;
  */
 
 public class Lista {
-    Nodo first;
-    Nodo last;
+    Casilla first;
+    Casilla last;
     int tamaño;
 
     public Lista() {
@@ -29,7 +29,7 @@ public class Lista {
         tamaño = 0;
     }
     
-    public void InsertarAlFinal(Nodo nuevoNodo){
+    public void InsertarAlFinal(Casilla nuevoNodo){
         
         if (this.EsVacía()){
             first=last=nuevoNodo;
@@ -52,19 +52,19 @@ public class Lista {
         } 
     }
     
-    public Nodo getFirst() {
+    public Casilla getFirst() {
         return first;
     }
 
-    public void setFirst(Nodo first) {
+    public void setFirst(Casilla first) {
         this.first = first;
     }
 
-    public Nodo getLast() {
+    public Casilla getLast() {
         return last;
     }
 
-    public void setLast(Nodo last) {
+    public void setLast(Casilla last) {
         this.last = last;
     }
 

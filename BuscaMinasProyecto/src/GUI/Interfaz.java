@@ -10,6 +10,7 @@ package GUI;
  */
 
 import buscaminasproyecto.Casilla;
+import buscaminasproyecto.Lista;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -79,6 +80,7 @@ public class Interfaz extends javax.swing.JFrame {
         lineEnd.add(texto5 = new JLabel("Marque el método de barrido: "));
         lineEnd.add(bfs = new JRadioButton("Breadth-first search"));
         lineEnd.add(dfs = new JRadioButton("Depth-first search"));
+        lineEnd.add(guardar = new JButton("Guardar"));
         add(lineEnd, BorderLayout.LINE_END);
         
         pack(); //Ajusta el tamaño del JFrame a su mínima expresión sin dejar ningún componente por fuera. Por eso no se define un tamaño del JFrame antes.
@@ -113,9 +115,53 @@ public class Interfaz extends javax.swing.JFrame {
                 
             }
         });
-     
-            
+        
+        barrer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "El botón funciona");
+            }
+        });
+        
+        ponerBandera.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "El botón funciona");
+            }
+        });
+        
+        quitarBandera.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "El botón funciona");
+            }
+        });
+        
+        
+        bfs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               JOptionPane.showMessageDialog(null, "El botón funciona");
+            }
+        });
+        
+        dfs.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "El botón funciona");
+            }
+        });
+        
+        guardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "El botón funciona");
+            }
+        });
+        
+        
     }
+            
     
     
     //Generación del Center del BorderLayout y el tablero con las minas colocadas
@@ -131,29 +177,48 @@ public class Interfaz extends javax.swing.JFrame {
                 center.add(tablero[i][j]); //Añadimos la casilla al JPanel
             }
         }
-        
         ponerMinas(tablero, filas, columnas, minas); //Llama al método y pone las minas aleatoriamente
+        
+        //Método para guardar las casillas adyacentes a otra en una lista
+        //Con el primer bucle recorremos cada casilla del tablero
+        for (int fila = 0; fila < filas; fila++) {
+            for (int columna = 0; columna < columnas; columna++) {
+                Casilla casilla = tablero[fila][columna];
+                //Con el segundo bucle recorremos cada casilla adyacente haciendo que la fila y columna de nuestra casilla seleccionada le sumemos -1, 0 y 1
+                for (int i = -1; i <= 1; i++) {
+                    for (int j = -1; j <= 1; j++) {
+                        int filaAdyacente = fila + i;
+                        int columnaAdyacente = columna + j;
+                        //Las primeras 4 condiciones son para que no busque fuera del rango del tablero. La última condición es para garantizar que la casilla seleccionada no se considere una casilla adyacente. Por último se añaden las casillas adyacentes a la lista de la casilla.
+                        if (filaAdyacente >= 0 && filaAdyacente < filas && columnaAdyacente >= 0 && columnaAdyacente < columnas && !(i == 0 && j == 0)) {
+                            casilla.getCasillasAdyacentes().InsertarAlFinal(tablero[filaAdyacente][columnaAdyacente]);
+                        }
+                    }
+                }
+            }
+        }
+        
         
         add(center, BorderLayout.CENTER);   
         revalidate(); //Cuando se modifica un componente en un Border o GridLayout es útil llamar a este método porque actualiza el diseño del contenedor
         repaint(); //Fuerza a repintar el contenedor (útil para mostrar cambios inmediatos)
     }
     
-        private void ponerMinas(Casilla[][] tablero, int filas, int columnas, int minas) {
-            Random random = new Random(); //generador de numeros aleatorios
-            int minasPuestas = 0; //cantidad de minas puestas en el tablero
-                while (minasPuestas < minas) { //mientras que minasPuestas sea menor que las minas en el tablero
-                    int fila = random.nextInt(filas); //Se crea una fila aleatoria
-                    int columna = random.nextInt(columnas); //Se crea una columna aleatoria
-                    if (tablero[fila][columna].getTieneMina() == false) { //Ver si no hay minas en esa posicion
-                        tablero[fila][columna].setTieneMina(true); //Pone la mina
-                        minasPuestas++; //aumenta la cantidad de minas puestas en el tablero
-                    }
-                }       
-        }
         
-        
-        
+    private void ponerMinas(Casilla[][] tablero, int filas, int columnas, int minas) {
+        Random random = new Random(); //generador de numeros aleatorios
+        int minasPuestas = 0; //cantidad de minas puestas en el tablero
+        Lista listaMinas = new Lista(); //Inicializamos una instancia de Lista
+            while (minasPuestas < minas) { //mientras que minasPuestas sea menor que las minas en el tablero
+                int fila = random.nextInt(filas); //Se crea una fila aleatoria
+                int columna = random.nextInt(columnas); //Se crea una columna aleatoria
+                if (tablero[fila][columna].getTieneMina() == false) { //Ver si no hay minas en esa posicion
+                    tablero[fila][columna].setTieneMina(true); //Pone la mina
+                    listaMinas.InsertarAlFinal(tablero[fila][columna]);
+                    minasPuestas++; //aumenta la cantidad de minas puestas en el tablero
+                }
+            }
+    }
         
         
         
@@ -172,8 +237,6 @@ public class Interfaz extends javax.swing.JFrame {
             }
         }
     }
-    
-   
 
     /**
      * This method is called from within the constructor to initialize the form.

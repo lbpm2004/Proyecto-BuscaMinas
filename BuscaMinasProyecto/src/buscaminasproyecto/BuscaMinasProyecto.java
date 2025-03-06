@@ -4,14 +4,12 @@
  */
 package buscaminasproyecto;
 
+import GUI.Interfaz;
 
 /**
  * @author Luis Peña
  * @colaboradores
  */
-
-import GUI.Interfaz;
-
 public class BuscaMinasProyecto {
     
     /**
