@@ -9,6 +9,7 @@ package buscaminasproyecto;
  * @author Luis Peña
  * @colaboradores
  */
+
 import GUI.Interfaz;
 
 public class BuscaMinasProyecto {

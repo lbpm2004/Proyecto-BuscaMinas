@@ -13,7 +13,7 @@ public class Juego {
     private int minasMarcadas; //minas marcadas por el jugador
     
     public Juego(int filas, int columnas, int minas) { //Recibe filas, columnas y minas
-        this.tablero = new Tablero(filas, columnas, minas); //Inicializar el tablero con los parametros indicados (dimensiontes y cantidad de minas)
+        //this.tablero = new Tablero(filas, columnas, minas); //Inicializar el tablero con los parametros indicados (dimensiontes y cantidad de minas)
         this.minasMarcadas = 0; //Inicializar el contador de minas marcadas para saber cuantas minas ha marcado el jugador
     }
     

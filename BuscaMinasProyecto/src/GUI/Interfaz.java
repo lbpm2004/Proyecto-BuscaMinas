@@ -6,13 +6,15 @@ package GUI;
 
 /**
  * @author Luis Peña
- * @colaboradores 
+ * @colaboradores Fabiana Rodriguez
  */
 
+import buscaminasproyecto.Casilla;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class Interfaz extends javax.swing.JFrame {
     //ATRIBUTOS DEL PAGE_START
@@ -36,20 +38,19 @@ public class Interfaz extends javax.swing.JFrame {
     private JRadioButton dfs; //Abreviacón de Depth-first search
     private JButton guardar; //Presionar este botón antes de cerrar el juego para guardar el estado actual del mismo
     //ATRIBUTOS DEL CENTER
-    //No dejar fijo el tamaño del tablero
-    private JToggleButton[][] tablero;
-    private JPanel center; //Panel central que se actualizará cada vez que se genere un tablero
+    private Casilla[][] tablero; //Matriz de objetos Casilla, y estos son a su vez JToggleButton 
+    private JPanel center; //Panel central que se actualizará al generar el tablero
 
     /**
      * Creates new form Interfaz
      */
     public Interfaz() {
         //Inicializa el JFrame con el formato BorderLayout()
-        setTitle("Busca Minas");
+        setTitle("Busca Minas"); //Título de la ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
-        //Para cada sección del BorderLayout usada se crea un JPanel (menos el Center porque se creará después)y, se inicializan y agregar los componentes
+        //Para cada sección del BorderLayout usada se crea un JPanel (menos el Center porque se creará después)y, se inicializan y agregan los componentes
         //Generación del Page_Start
         JPanel pageStart = new JPanel(new FlowLayout(FlowLayout.LEFT, 40, 10));
         introduccion = new JLabel("Rellene los campos vacíos y luego presione el botón 'Generar' para generar el tablero.");
@@ -81,10 +82,7 @@ public class Interfaz extends javax.swing.JFrame {
         add(lineEnd, BorderLayout.LINE_END);
         
         pack(); //Ajusta el tamaño del JFrame a su mínima expresión sin dejar ningún componente por fuera. Por eso no se define un tamaño del JFrame antes.
-        
-        
-        
-        
+
         generar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,35 +113,63 @@ public class Interfaz extends javax.swing.JFrame {
                 
             }
         });
-        
-        
-        
-        
+     
+            
     }
     
     
-    //Generación del tablero con las minas colocadas y del Center
+    //Generación del Center del BorderLayout y el tablero con las minas colocadas
         public void generarTablero(int filas, int columnas, int minas){
         JPanel center = new JPanel(new GridLayout(filas, columnas));
-        tablero = new JToggleButton[filas][columnas];
+        tablero = new Casilla[filas][columnas]; //Inicializamos el tablero como una matriz de Casillas vacías
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                tablero[i][j] = new JToggleButton();
-                tablero[i][j].setPreferredSize(new Dimension(10,10)); //Aunque esto no afecta al tamaño de la casilla por el método pack() igual genera un pequeño espacio entre Line_Start y Line_End que resultan agradables.
-                tablero[i][j].addActionListener(new CasillaListener()); //Verificar utilidad de esta línea
-                tablero[i][j].setText("");
-                center.add(tablero[i][j]);
+                tablero[i][j] = new Casilla(i, j); //En cada bloque del tablero se inicializa una instancia de Casilla
+                tablero[i][j].setPreferredSize(new Dimension(1,1)); //Aunque esto no afecta al tamaño de la casilla por el método pack() igual genera un pequeño espacio entre Line_Start y Line_End que resultan agradables.
+                tablero[i][j].addActionListener(new CasillaListener()); //Para que la casilla pueda hacer una acción
+                tablero[i][j].setText(""); //Para que la casilla se muestre vacía
+                center.add(tablero[i][j]); //Añadimos la casilla al JPanel
             }
         }
+        
+        ponerMinas(tablero, filas, columnas, minas); //Llama al método y pone las minas aleatoriamente
+        
         add(center, BorderLayout.CENTER);   
-        revalidate();
-        repaint();
+        revalidate(); //Cuando se modifica un componente en un Border o GridLayout es útil llamar a este método porque actualiza el diseño del contenedor
+        repaint(); //Fuerza a repintar el contenedor (útil para mostrar cambios inmediatos)
     }
-
+    
+        private void ponerMinas(Casilla[][] tablero, int filas, int columnas, int minas) {
+            Random random = new Random(); //generador de numeros aleatorios
+            int minasPuestas = 0; //cantidad de minas puestas en el tablero
+                while (minasPuestas < minas) { //mientras que minasPuestas sea menor que las minas en el tablero
+                    int fila = random.nextInt(filas); //Se crea una fila aleatoria
+                    int columna = random.nextInt(columnas); //Se crea una columna aleatoria
+                    if (tablero[fila][columna].getTieneMina() == false) { //Ver si no hay minas en esa posicion
+                        tablero[fila][columna].setTieneMina(true); //Pone la mina
+                        minasPuestas++; //aumenta la cantidad de minas puestas en el tablero
+                    }
+                }       
+        }
+        
+        
+        
+        
+        
+        
     private class CasillaListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            JToggleButton casilla = (JToggleButton) e.getSource();
+            Casilla casilla = (Casilla) e.getSource();
+            if(casilla.isSelected()){
+                if(casilla.getTieneMina()){
+                    casilla.setText("Mina");
+                    revalidate();
+                    repaint();
+                    
+                }
+                
+            }
         }
     }
     
@@ -213,4 +239,6 @@ public class Interfaz extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
 }
+
