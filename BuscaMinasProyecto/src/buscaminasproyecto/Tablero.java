@@ -8,7 +8,7 @@ import java.util.Random;//Para poner las minas aleatoriamente en el tablero
 
 /**
  *
- * @author Personal
+ * @author Fabiana Rodríguez, Luis Peña
  */
 public class Tablero {
     private int filas; //num de filas del tablerp
