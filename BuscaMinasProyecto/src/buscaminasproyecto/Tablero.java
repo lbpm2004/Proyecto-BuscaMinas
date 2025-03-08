@@ -26,7 +26,7 @@ public Tablero(int filas, int columnas, int minas){
     this.cantidadMinas = new int [filas][columnas]; //Inicializa la matriz
     this.encontradas = new boolean [filas][columnas]; //Inicializa la matriz
     this.ponerMinas(); //pone las minas en el tablero
-    //this.calcularCantidadMinas(); //calcula la cantidad de minas adyacentes
+    calcularCantidadMinas(); //calcula la cantidad de minas adyacentes
 }
 
 private void ponerMinas() {
