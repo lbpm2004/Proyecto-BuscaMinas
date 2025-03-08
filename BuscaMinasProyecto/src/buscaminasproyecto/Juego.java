@@ -6,7 +6,7 @@ package buscaminasproyecto;
 
 /**
  *
- * @author Personal
+ * @author Fabiana Rodríguez, Luis Peña
  */
 public class Juego {
     private Tablero tablero; //Tablero tiene el estado del tablero del juego (tiene la logica para manejar lad minas y el conteo de las adyacentes)
