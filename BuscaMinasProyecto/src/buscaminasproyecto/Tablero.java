@@ -68,7 +68,7 @@ private void calcularCantidadMinas() {
 }
 */
 
-public boolean descubrirCasilla(int fila, int columna) { //devuelve un boolean y le pasamos fila y columna
+public boolean barrerCasilla(int fila, int columna) { //devuelve un boolean y le pasamos fila y columna
     if (minasLugar[fila][columna]) { //ver si hay una mina en la casilla indicada por fila y columna 
         //minasLugar tiene los booleamos que dicen si hay una mina en las casillas
         return false; //Cuando se descubre una mina
