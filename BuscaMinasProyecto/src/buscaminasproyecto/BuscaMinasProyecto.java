@@ -6,7 +6,7 @@ package buscaminasproyecto;
 
 /**
  *
- * @author Personal
+ * @author Fabiana Rodríguez, Luis Peña
  */
 public class BuscaMinasProyecto {
 
