@@ -35,7 +35,6 @@ public class Interfaz extends javax.swing.JFrame {
     private JButton ponerBandera; //Al presionar este botón después de seleccionar una casilla se ejecutará un método
     private JButton quitarBandera; //Al presionar este botón después de seleccionar una casilla se ejecutará un método
     private JLabel texto5; //texto = Marque el método para barrer las casillas
-    private JRadioButton bfs; //Abreviacón de Breadth-first search
     private JRadioButton dfs; //Abreviacón de Depth-first search
     private JButton guardar; //Presionar este botón antes de cerrar el juego para guardar el estado actual del mismo
     //ATRIBUTOS DEL CENTER
@@ -79,8 +78,7 @@ public class Interfaz extends javax.swing.JFrame {
         lineEnd.add(barrer = new JButton("Barrer"));
         lineEnd.add(ponerBandera = new JButton("Poner Bandera"));
         lineEnd.add(quitarBandera = new JButton("Quitar Bandera"));
-        lineEnd.add(texto5 = new JLabel("Marque el método de barrido: "));
-        lineEnd.add(bfs = new JRadioButton("Breadth-first search"));
+        lineEnd.add(texto5 = new JLabel("Cambiar método de barrido: "));
         lineEnd.add(dfs = new JRadioButton("Depth-first search"));
         lineEnd.add(guardar = new JButton("Guardar"));
         add(lineEnd, BorderLayout.LINE_END);
@@ -125,7 +123,14 @@ public class Interfaz extends javax.swing.JFrame {
         barrer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "El botón funciona");
+                if(casillaSeleccionada == null || casillaSeleccionada.isSelected() == false){
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar una casilla para poder barrerla.");
+                }else if(casillaSeleccionada.getTieneMina()){
+                    JOptionPane.showMessageDialog(null, "HAS PERDIDO!\nBarriste una casilla con mina.");
+                    //buscar cómo cerrar el programa al perder.
+                }else{
+                    
+                }
             }
         });
         
@@ -182,13 +187,6 @@ public class Interfaz extends javax.swing.JFrame {
         });
         
         
-        bfs.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               JOptionPane.showMessageDialog(null, "El botón funciona");
-            }
-        });
-        
         dfs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -209,7 +207,7 @@ public class Interfaz extends javax.swing.JFrame {
     
     
     //Generación del Center del BorderLayout y el tablero con las minas colocadas
-        public void GenerarTablero(int filas, int columnas, int minas){
+    public void GenerarTablero(int filas, int columnas, int minas){
         JPanel center = new JPanel(new GridLayout(filas, columnas));
         tablero = new Casilla[filas][columnas]; //Inicializamos el tablero como una matriz de Casillas vacías
         for (int i = 0; i < filas; i++) {
@@ -249,7 +247,7 @@ public class Interfaz extends javax.swing.JFrame {
         add(center, BorderLayout.CENTER);   
         revalidate(); //Cuando se modifica un componente en un Border o GridLayout es útil llamar a este método porque actualiza el diseño del contenedor
         repaint(); //Fuerza a repintar el contenedor (útil para mostrar cambios inmediatos)
-    }
+        }
     
         
     private void PonerMinas(Casilla[][] tablero, int filas, int columnas, int minas) {
@@ -266,7 +264,20 @@ public class Interfaz extends javax.swing.JFrame {
                 }
             }
     }
-
+    
+    //Método Breadth First Search
+    public void BFS(){
+        
+    }
+    
+    //Método Depth First Search
+    public void DFS(){
+        
+    }
+    
+    
+    
+    
     public int getIntrodMinas() {
         int numMinas = Integer.parseInt(introdMinas.getText());
         return numMinas;
@@ -279,6 +290,7 @@ public class Interfaz extends javax.swing.JFrame {
         public void actionPerformed(ActionEvent e) {
             Casilla casilla = (Casilla) e.getSource();
             Casilla casillaSeleccionada = casilla;
+            //Condicional para indicar donde estan las minas (SE ELIMINARÁ DESPUÉS)
             if(casilla.isSelected()){
                 if(casilla.getTieneMina()){
                     casilla.setText("Mina");

@@ -7,8 +7,9 @@ package buscaminasproyecto;
 import GUI.Interfaz;
 
 /**
+ * Esta clase se encarga de crear y manejar las instancias de la clase Interfaz.
  * @author Luis Peña
- * @colaboradores
+ * @colaboradores Fabiana Rodriguez y Drexler Hurtado
  */
 public class BuscaMinasProyecto {
     
