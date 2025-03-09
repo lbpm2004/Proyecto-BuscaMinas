@@ -49,6 +49,7 @@ public Tablero(int filas, int columnas, int minas){
             minasLugar.get(i).add(false); //al principio no hay minas en esa casilla
             cantidadMinas.get(i).add(0); //al principio no se ha calculado la cantidad de minas adyacentes a esa casilla
             encontradas.get(i).add(false) //al principio no se ha encontrado la casilla
+            identificadores[i][j] = generarIdentificador(i, j); //Genera el identificador de la casilla
                 }
     }
     
@@ -56,6 +57,14 @@ public Tablero(int filas, int columnas, int minas){
     calcularCantidadMinas(); //calcula la cantidad de minas adyacentes
     //son metodos
 }
+
+private String generarIdentificador(int fila, int columna) {
+   String[] letraColumnas = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"}; //array de letras para las columnas
+    String[] letraColumna = letrasColumnas[columna]; //acceder a la letra correspondiente a la columna
+    int numeroFila = fila + 1; //acceder al numero de fila 
+    return letraColumna + numeroFila //Identificador con la letra siendo la columna y la fila el numero
+    
+    
 
 private void ponerMinas() {
     Random random = new Random(); //generador de numeros aleatorios
