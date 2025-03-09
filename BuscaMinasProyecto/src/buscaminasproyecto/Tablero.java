@@ -23,7 +23,7 @@ public Tablero(int filas, int columnas, int minas){
     this.columnas = columnas;
     this.minas = minas;
     minasLugar = new ArrayList<>(); //Inicializa la lista de listas
-    cantidadMinas =new ArrayList<>(); //Inicializa la lista de listas
+    cantidadMinas = new ArrayList<>(); //Inicializa la lista de listas
     encontradas = new ArrayList<>(); //Inicializa la lista de listas
 
     for(int i = 0; i < filas; i++) { //i es el indice de la fila actual //itera sobre todas las filas del tablero //va desde 0 hasta la fila -1 (recorre todas las filas del tablero)
