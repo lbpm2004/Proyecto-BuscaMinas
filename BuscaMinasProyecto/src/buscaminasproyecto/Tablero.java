@@ -17,6 +17,21 @@ public class Tablero {
     private List<List<Boolean>> minasLugar; //lista de listas para las minas
     private List<List<Interger>> cantidadMinas; //lista de listas para la cantidad de minas
     private List<List<Boolean>> encontradas; //Lista de listas para las casillas encontradas
+
+public Tablero(int filas, int columnas, int minas) {
+    if (filas < 3 and filas > 10) {
+        System.out.println("Error, el numero de filas debe estar entre 3 y 10. Se pondran 6 que esta entre estos numeros");
+        filas = 6;
+    }
+    if (and columnas < 3 and columnas > 10) {
+        System.out.println("Error, el numero de columnas debe estar entre 3 y 10. Se pondran 6 que esta entre estos numeros");
+        filas = 6;
+    }
+
+    if (minas < 1 and minas > filas*columnas) {
+        System.out.println("Error, debe haber un minimo de una minay un maximo que sea igual al numero de casillas. Se pondra 1 mina");
+        minas = 1;
+    }
     
 public Tablero(int filas, int columnas, int minas){
     this.filas = filas;
