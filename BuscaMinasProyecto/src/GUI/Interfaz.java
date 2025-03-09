@@ -4,63 +4,66 @@
  */
 package GUI;
 
-/**
- * @author Luis Peña
- * @colaboradores Fabiana Rodriguez
- */
-
 import buscaminasproyecto.Casilla;
 import buscaminasproyecto.Lista;
+import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
+/**
+ * Esta clase define objetos de tipo JFrame que se encargan de ejecutar toda la lógica del proyecto y hacer posible la visualización e interacción con el usuario 
+ * @author Luis Peña
+ * @colaboradores Fabiana Rodriguez y Drexler Hurtado
+ */
 public class Interfaz extends javax.swing.JFrame {
+    //Atributos de la clase
+    /**
+     * El JFrame está conformado por un JPanel de tipo BorderLayout, el cual a a su vez está conformado por un FlowLayout (PAGE_START) y tres GridLayout (LINE_START, CENTER y LINE_END)
+     */
     //ATRIBUTOS DEL PAGE_START
-    private JLabel introduccion; //Instrucción para el jugador.
+    private JLabel introduccion; 
     //ATRIBUTOS DEL LINE_START
-    private JLabel texto1; // texto = Cant. Filas
-    private JTextField introdFilas; // Campo para introducir la cantidad
-    private JLabel texto2; // texto = Cant. Columnas
-    private JTextField introdColumnas; // Campo para introducir la cantidad
-    private JLabel texto3; // texto = Cant. Minas
-    private JTextField introdMinas; // Campo para introducir la cantidad
+    private JLabel texto1; 
+    private JTextField introdFilas; 
+    private JLabel texto2; 
+    private JTextField introdColumnas; 
+    private JLabel texto3; 
+    private JTextField introdMinas; 
     private JLabel espacioBlanco; //Espacio en blanco para rellenar hueco y alinear el botón "Generar" con la columna 2
-    private JButton generar; // Botón para obtener los datos de los TextField
+    private JButton generar; 
     //ATRIBUTOS DEL LINE_END
-    private JLabel texto4; // Texto = Opciones para la casilla
-    private JButton barrer; //Al presionar este botón después de seleccionar una casilla se ejecutará un método
-    private JButton ponerBandera; //Al presionar este botón después de seleccionar una casilla se ejecutará un método
-    private JButton quitarBandera; //Al presionar este botón después de seleccionar una casilla se ejecutará un método
-    private JLabel texto5; //texto = Marque el método para barrer las casillas
+    private JLabel texto4; 
+    private JButton barrer; 
+    private JButton ponerBandera; 
+    private JButton quitarBandera; 
+    private JLabel texto5; 
     private JRadioButton dfs; //Abreviacón de Depth-first search
-    private JButton guardar; //Presionar este botón antes de cerrar el juego para guardar el estado actual del mismo
+    private JButton guardar; 
     //ATRIBUTOS DEL CENTER
-    private Casilla[][] tablero; //Matriz de objetos Casilla, y estos son a su vez JToggleButton 
-    private Casilla casillaSeleccionada; //Variable auxiliar para saber si una casilla está seleccionada
-    private int banderasPuestas; //Guardar la cantidad de bandera colocadas en el tablero
-    private JPanel center; //Panel central que se actualizará al generar el tablero
+    private Casilla[][] tablero;  
+    private Casilla casillaSeleccionada; 
+    private int banderasPuestas; 
+    private JPanel center; 
 
     /**
-     * Creates new form Interfaz
+     * Constructor del JFrame
      */
     public Interfaz() {
         //Inicializa el JFrame con el formato BorderLayout()
-        setTitle("Busca Minas"); //Título de la ventana
+        setTitle("Busca Minas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         
-        //Para cada sección del BorderLayout usada se crea un JPanel (menos el Center porque se creará después)y, se inicializan y agregan los componentes
-        //Generación del Page_Start
+        //Generación del PAGE_START
         JPanel pageStart = new JPanel(new FlowLayout(FlowLayout.LEFT, 40, 10));
         introduccion = new JLabel("Rellene los campos vacíos y luego presione el botón 'Generar' para generar el tablero.");
         introduccion.setFont(new Font("Arial",Font.PLAIN, 14));
         pageStart.add(introduccion);
         add(pageStart, BorderLayout.PAGE_START);
         
-        //Generación del Line_Start
+        //Generación del LINE_START
         JPanel lineStart = new JPanel(new GridLayout(4,2));
         lineStart.add(texto1 = new JLabel("Cant. Filas: "));
         lineStart.add(introdFilas = new JTextField(""));
@@ -72,7 +75,7 @@ public class Interfaz extends javax.swing.JFrame {
         lineStart.add(generar = new JButton("Generar"));
         add(lineStart, BorderLayout.LINE_START);
         
-        //Generación del Line_End
+        //Generación del LINE_END
         JPanel lineEnd = new JPanel(new GridLayout(8,1));
         lineEnd.add(texto4 = new JLabel("Opciones para la casilla: "));
         lineEnd.add(barrer = new JButton("Barrer"));
@@ -83,12 +86,14 @@ public class Interfaz extends javax.swing.JFrame {
         lineEnd.add(guardar = new JButton("Guardar"));
         add(lineEnd, BorderLayout.LINE_END);
         
-        pack(); //Ajusta el tamaño del JFrame a su mínima expresión sin dejar ningún componente por fuera. Por eso no se define un tamaño del JFrame antes.
+        pack(); //Ajusta el tamaño del JFrame a su mínima expresión pero sin dejar ningún componente por fuera.
 
         generar.addActionListener(new ActionListener() {
             @Override
+            /**
+             * Método encargado de verificar los datos introducidos en los TextField y de llamar al método GenerarTablero()
+             */
             public void actionPerformed(ActionEvent e) {
-                // Obtener el texto de los JTextFields, además de validar lo que ingresa el usuario
                 try{
                     int numFilas = Integer.parseInt(introdFilas.getText());
                     int numColumnas = Integer.parseInt(introdColumnas.getText());
@@ -106,22 +111,25 @@ public class Interfaz extends javax.swing.JFrame {
                     if(center != null){
                         remove(center);
                     }
-                    //Evitamos que el usuario modifique el tablero
+                    
                     introdFilas.setEditable(false);
                     introdColumnas.setEditable(false);
                     introdMinas.setEditable(false);
                     GenerarTablero(numFilas, numColumnas, numMinas);
-                    banderasPuestas = 0; //Inicializamos la variable
+                    banderasPuestas = 0;
 
                 }catch (Exception i){
                     JOptionPane.showMessageDialog(null, "El número de filas, columnas y minas debe ser un n° natural.\nLas filas y columnas deben ser >=3 y <=10.\nEl número de minas no puede ser mayor al de casillas.");
                 }
                 
             }
-        });
+        });//Cierre del método
         
         barrer.addActionListener(new ActionListener() {
             @Override
+            /**
+             * Método que dada una casilla seleccionada la barre. En caso de tener la casilla una mina el jugador pierde y si no tiene una entonces la bloquea la casilla e indica con un número si tiene minas adyacentes.
+             */
             public void actionPerformed(ActionEvent e) {
                 if(casillaSeleccionada == null || casillaSeleccionada.isSelected() == false){
                     JOptionPane.showMessageDialog(null, "Debe seleccionar una casilla para poder barrerla.");
@@ -132,10 +140,13 @@ public class Interfaz extends javax.swing.JFrame {
                     
                 }
             }
-        });
+        });//Cierre del método
         
         ponerBandera.addActionListener(new ActionListener() {
             @Override
+            /**
+             * Método que dada una casilla seleccionada actualiza su texto poniendo una bandera siempre y cuando la cantidad de banderas colocadas no supere al de las minas.
+             */
             public void actionPerformed(ActionEvent e) {
                 //Verificamos que la cantidad de banderas no supere al de las minas
                 if(banderasPuestas >= getIntrodMinas()){
@@ -159,10 +170,13 @@ public class Interfaz extends javax.swing.JFrame {
                     }
                 }
             }
-        });
+        });//Cierre del método
         
         quitarBandera.addActionListener(new ActionListener() {
             @Override
+            /**
+             * Método que dada una casilla seleccionada quita la bandera en ella siempre y cuando la casilla tenga bandera y las banderas colocadas no sean menor a 0.
+             */
             public void actionPerformed(ActionEvent e) {
                 if(banderasPuestas <= 0){
                     JOptionPane.showMessageDialog(null, "No hay banderas para quitar.");
@@ -184,11 +198,14 @@ public class Interfaz extends javax.swing.JFrame {
                     }
                 }
             }
-        });
+        });//Cierre del método
         
         
         dfs.addActionListener(new ActionListener() {
             @Override
+            /**
+             * Método que 
+             */
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "El botón funciona");
             }
@@ -196,45 +213,47 @@ public class Interfaz extends javax.swing.JFrame {
         
         guardar.addActionListener(new ActionListener() {
             @Override
+            /**
+             * Método que 
+             */
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null, "El botón funciona");
             }
-        });
-        
-        
-    }
-            
+        });//Cierre del método
+    }//Cierre del constructor    
     
-    
-    //Generación del Center del BorderLayout y el tablero con las minas colocadas
+    /**
+     * Método que genera el tablero, pone las minas, guardar las casillas adyacentes en una lista y lo añade todo al CENTER (GirdLayout).
+     * @param filas entero que indica la cantidad de filas que debe tener el tablero
+     * @param columnas entero que indica la cantidad de columnas que debe tener el tablero
+     * @param minas entero que indica la cantidad de minas que debe tener el tablero
+     */
     public void GenerarTablero(int filas, int columnas, int minas){
         JPanel center = new JPanel(new GridLayout(filas, columnas));
-        tablero = new Casilla[filas][columnas]; //Inicializamos el tablero como una matriz de Casillas vacías
+        tablero = new Casilla[filas][columnas];
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                tablero[i][j] = new Casilla(i, j); //En cada bloque del tablero se inicializa una instancia de Casilla
-                tablero[i][j].setPreferredSize(new Dimension(1,1)); //Aunque esto no afecta al tamaño de la casilla por el método pack() igual genera un pequeño espacio entre Line_Start y Line_End que resultan agradables.
-                tablero[i][j].addActionListener(new CasillaListener()); //Para que la casilla pueda hacer una acción
-                tablero[i][j].setText(""); //Para que la casilla se muestre vacía
-                center.add(tablero[i][j]); //Añadimos la casilla al JPanel
+                tablero[i][j] = new Casilla(i, j);
+                tablero[i][j].setPreferredSize(new Dimension(1,1)); //Aunque esto no afecta al tamaño de la casilla por el método pack() igual genera un pequeño espacio entre el CENTER con respecto al Line_Start y Line_End que resultan agradable.
+                tablero[i][j].setText("");
+                center.add(tablero[i][j]);
             }
         }
-        PonerMinas(tablero, filas, columnas, minas); //Llama al método y pone las minas aleatoriamente
+        PonerMinas(tablero, filas, columnas, minas);
         
-        //Método para guardar las casillas adyacentes a otra en una lista
-        //Con el primer bucle recorremos cada casilla del tablero
+        
         for (int fila = 0; fila < filas; fila++) {
             for (int columna = 0; columna < columnas; columna++) {
                 Casilla casilla = tablero[fila][columna];
                 casilla.addActionListener(e -> {
-                    casillaSeleccionada = casilla; //PERMITE AÑADIR ACCION A CADA CASILLA
+                    casillaSeleccionada = casilla;
                 });
-                //Con el segundo bucle recorremos cada casilla adyacente haciendo que la fila y columna de nuestra casilla seleccionada le sumemos -1, 0 y 1
+                //Con este ciclo anidado recorremos cada casilla adyacente haciendo que la fila y columna de nuestra casilla le sumemos -1, 0 y 1
                 for (int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
                         int filaAdyacente = fila + i;
                         int columnaAdyacente = columna + j;
-                        //Las primeras 4 condiciones son para que no busque fuera del rango del tablero. La última condición es para garantizar que la casilla seleccionada no se considere una casilla adyacente. Por último se añaden las casillas adyacentes a la lista de la casilla.
+                        //Las primeras 4 condiciones son para que no busque fuera del rango del tablero. La última condición es para garantizar que la casilla no se considere a sí misma una casilla adyacente. Por último se añaden las casillas adyacentes a la lista de la casilla.
                         if (filaAdyacente >= 0 && filaAdyacente < filas && columnaAdyacente >= 0 && columnaAdyacente < columnas && !(i == 0 && j == 0)) {
                             casilla.getCasillasAdyacentes().InsertarAlFinal(tablero[filaAdyacente][columnaAdyacente]);
                         }
@@ -245,62 +264,53 @@ public class Interfaz extends javax.swing.JFrame {
         
         
         add(center, BorderLayout.CENTER);   
-        revalidate(); //Cuando se modifica un componente en un Border o GridLayout es útil llamar a este método porque actualiza el diseño del contenedor
+        revalidate(); //Cuando se modifica un componente se llama a este método para actualizar el estado del contenedor
         repaint(); //Fuerza a repintar el contenedor (útil para mostrar cambios inmediatos)
-        }
+    }//Cierre método
     
-        
+    /**
+     * Método que usa la librería java.util.random para modificar aleatoriamente el valor booleano del atributo tieneMina de una casilla y además guardar la casilla en una lista.
+     * @param tablero Recibe la matriz de casillas generadas en el método GenerarTablero
+     * @param filas Guarda la cantidad de filas de la matriz
+     * @param columnas Guarda la cantidad de columnas de la matriz
+     * @param minas Guarda la cantidad de minas de la matriz
+     */    
     private void PonerMinas(Casilla[][] tablero, int filas, int columnas, int minas) {
-        Random random = new Random(); //generador de numeros aleatorios
-        int minasPuestas = 0; //cantidad de minas puestas en el tablero
-        Lista listaMinas = new Lista(); //Inicializamos una instancia de Lista
-            while (minasPuestas < minas) { //mientras que minasPuestas sea menor que las minas en el tablero
-                int fila = random.nextInt(filas); //Se crea una fila aleatoria
-                int columna = random.nextInt(columnas); //Se crea una columna aleatoria
-                if (tablero[fila][columna].getTieneMina() == false) { //Ver si no hay minas en esa posicion
-                    tablero[fila][columna].setTieneMina(true); //Pone la mina
+        Random random = new Random();
+        int minasPuestas = 0; 
+        Lista listaMinas = new Lista(); 
+            while (minasPuestas < minas) { 
+                int fila = random.nextInt(filas); 
+                int columna = random.nextInt(columnas); 
+                if (tablero[fila][columna].getTieneMina() == false) { 
+                    tablero[fila][columna].setTieneMina(true); 
                     listaMinas.InsertarAlFinal(tablero[fila][columna]);
-                    minasPuestas++; //aumenta la cantidad de minas puestas en el tablero
+                    minasPuestas++; 
                 }
             }
-    }
+    }//Cierre del método
     
-    //Método Breadth First Search
+    /**
+     * Método que 
+     */
     public void BFS(){
         
     }
     
-    //Método Depth First Search
+    /**
+     * Método que 
+     */
     public void DFS(){
         
     }
     
-    
-    
-    
+    /**
+     * Método que devuelve el valor ingresado en el TextField "introdMinas"
+     * @return numMinas Un String convertido a Integer.
+     */
     public int getIntrodMinas() {
         int numMinas = Integer.parseInt(introdMinas.getText());
         return numMinas;
-    }
-        
-        
-        
-    private class CasillaListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            Casilla casilla = (Casilla) e.getSource();
-            Casilla casillaSeleccionada = casilla;
-            //Condicional para indicar donde estan las minas (SE ELIMINARÁ DESPUÉS)
-            if(casilla.isSelected()){
-                if(casilla.getTieneMina()){
-                    casilla.setText("Mina");
-                    revalidate();
-                    repaint();
-                    
-                }
-                
-            }
-        }
     }
 
     /**
@@ -368,5 +378,5 @@ public class Interfaz extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 
-}
+}//Cierre de la clase
 

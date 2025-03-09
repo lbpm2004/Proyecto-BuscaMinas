@@ -5,30 +5,46 @@
 package buscaminasproyecto;
 
 /**
+ * Esta clase define obejtos de tipo lista enlazada simple
  * @author Luis Peña
  * @colaboradores 
  */
 
 public class Lista {
+    //Atributos de la clase
     Casilla first;
     Casilla last;
     int tamaño;
-
+    
+    /**
+     * Consructor de una instancia de lista vacía
+     */
     public Lista() {
         this.first = null;
         this.last = null;
         this.tamaño = 0;
-    }
+    }//Cierre del constructor
     
+    /**
+     * Método que devuelve un valor booleano al comprobar si el primer nodo de la lista es nulo
+     * @return Valor booleano
+     */
     public boolean EsVacía(){
         return getFirst() == null;
-    }
+    }//Cierre del método
     
+    /**
+     * Método que iguala el primer y último nodo a null para dejarla vacía
+     */
     public void VaciarLista(){
         first=last=null;
         tamaño = 0;
-    }
+    }//Cierre del método
     
+    /**
+     * Método que recibe una instancia de Casilla y la introduce al final de la lista
+     * @param nuevoNodo Define una instancia de Casilla que será introducida en la lista
+     */
     public void InsertarAlFinal(Casilla nuevoNodo){
         
         if (this.EsVacía()){
@@ -38,8 +54,11 @@ public class Lista {
         last = nuevoNodo; 
         }
         tamaño++;
-    }
+    }//Cierre del método
     
+    /**
+     * Método que elimina el primer nodo de la lista
+     */
     public void EliminarAlInicio(){
         
         if(!this.EsVacía()){
@@ -50,8 +69,11 @@ public class Lista {
             }
             tamaño--;
         } 
-    }
+    }//Cierre del método
     
+    /**
+     * Getters y Setters de los atributos de la clase
+     */
     public Casilla getFirst() {
         return first;
     }

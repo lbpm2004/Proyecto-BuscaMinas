@@ -14,6 +14,7 @@ import GUI.Interfaz;
 public class BuscaMinasProyecto {
     
     /**
+     * Método que crea una instancia de Interfaz y la maneja
      * @param args the command line arguments
      */
     public static void main(String[] args) {

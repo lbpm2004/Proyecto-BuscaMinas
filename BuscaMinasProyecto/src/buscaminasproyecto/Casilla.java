@@ -7,29 +7,34 @@ package buscaminasproyecto;
 import javax.swing.JToggleButton;
 
 /**
- *
- * @author Personal
+ * Esta clase define objetos de tipo Nodo que heredan de la clase JToggleButton 
+ * @author Luis Peña
  */
 
-//Creamos una clase Casilla que hereda de JToggleButton (nos permite agregar parámetros como tieneMinas)
 public class Casilla extends JToggleButton {
+    //Atributos de la clase
     private int fila;
     private int columna;
     private boolean tieneMina;
     private boolean tieneBandera;
-    private Casilla next; //Apuntador al siguente objeto casilla
-    private Lista casillasAdyacentes; //Lista de objetos casillas adyacentes
+    private Casilla next; 
+    private Lista casillasAdyacentes;
 
-    // Constructor que recibe filas y columnas, y deja false por defecto si una casilla tiene mina
+    /**
+     * Constructor para la casilla
+     * @param fila Guarda la fila de la casilla como un entero
+     * @param columna Guarda la columna de la casilla como un entero
+     */
     public Casilla(int fila, int columna) {
         this.fila = fila;
         this.columna = columna;
-        this.tieneMina = false; //Por defecto la casilla no tiene mina
-        this.tieneBandera = false; //Por defecto la casilla no tiene bandera
-        this.next = null; //Por defecto la casilla apuntará a null
-        this.casillasAdyacentes = new Lista(); //Creamos una lista vacía para almacenar las casillas adyacentes
-    }
+        this.tieneMina = false; 
+        this.tieneBandera = false; 
+        this.next = null; 
+        this.casillasAdyacentes = new Lista(); 
+    }//Cierre del constructor
     
+    /*
     //Posible eliminación depediendo del desarrollo del proyecto
     public char IntToChar(int entero){
         //Se crea un array con la cantidad de letras máximas que puede tener el tablero
@@ -43,8 +48,11 @@ public class Casilla extends JToggleButton {
             }
         }
         return caracter;
-    }
-
+    }*/
+    
+    /**
+     * Getters y Setters de los atributos de la clase
+     */
     public int getFila() {
         return fila;
     }
@@ -85,5 +93,5 @@ public class Casilla extends JToggleButton {
     public Lista getCasillasAdyacentes() {
         return casillasAdyacentes;
     }
-}
+}//Cierre de la clase
 
