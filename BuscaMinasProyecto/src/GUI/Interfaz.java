@@ -5,6 +5,8 @@
 package GUI;
 
 import buscaminasproyecto.Casilla;
+import buscaminasproyecto.Cola;
+import buscaminasproyecto.Cola;
 import buscaminasproyecto.Lista;
 import java.util.Random;
 import javax.swing.*;
@@ -41,10 +43,12 @@ public class Interfaz extends javax.swing.JFrame {
     private JLabel texto5; 
     private JRadioButton dfs; //Abreviacón de Depth-first search
     private JButton guardar; 
+    private JButton ganar;
     //ATRIBUTOS DEL CENTER
     private Casilla[][] tablero;  
     private Casilla casillaSeleccionada; 
     private int banderasPuestas; 
+    private Lista listaMinas;
     private JPanel center; 
 
     /**
@@ -84,6 +88,7 @@ public class Interfaz extends javax.swing.JFrame {
         lineEnd.add(texto5 = new JLabel("Cambiar método de barrido: "));
         lineEnd.add(dfs = new JRadioButton("Depth-first search"));
         lineEnd.add(guardar = new JButton("Guardar"));
+        lineEnd.add(ganar = new JButton("Ganar"));
         add(lineEnd, BorderLayout.LINE_END);
         
         pack(); //Ajusta el tamaño del JFrame a su mínima expresión pero sin dejar ningún componente por fuera.
@@ -125,19 +130,41 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });//Cierre del método
         
+        ganar.addActionListener(new ActionListener(){
+            @Override
+            /**
+             * Llama al método Ganar().
+             */
+            public void actionPerformed(ActionEvent e) {
+                Ganar();
+            }
+        });
+        
+        
+        
         barrer.addActionListener(new ActionListener() {
             @Override
             /**
-             * Método que dada una casilla seleccionada la barre. En caso de tener la casilla una mina el jugador pierde y si no tiene una entonces la bloquea la casilla e indica con un número si tiene minas adyacentes.
+             * Método que dada una casilla seleccionada la barre. En caso de tener la casilla una mina el jugador pierde y sino bloquea la casilla e indica con un número la cantidad de minas adyacentes.
              */
             public void actionPerformed(ActionEvent e) {
                 if(casillaSeleccionada == null || casillaSeleccionada.isSelected() == false){
                     JOptionPane.showMessageDialog(null, "Debe seleccionar una casilla para poder barrerla.");
-                }else if(casillaSeleccionada.getTieneMina()){
-                    JOptionPane.showMessageDialog(null, "HAS PERDIDO!\nBarriste una casilla con mina.");
-                    //buscar cómo cerrar el programa al perder.
-                }else{
                     
+                }else if(casillaSeleccionada.getTieneBandera()){
+                    JOptionPane.showMessageDialog(null, "No puedes barrer una casilla con bandera.");
+                    casillaSeleccionada.setSelected(false);
+                }else if(casillaSeleccionada.getTieneMina()){
+                    casillaSeleccionada.setEnabled(false);
+                    JOptionPane.showMessageDialog(null, "HAS PERDIDO!\nBarriste una casilla con mina.");
+                    System.exit(0);
+                    
+                }else{
+                    if(dfs.isSelected()){
+                        DFS(casillaSeleccionada);
+                    }else{
+                        BFS(casillaSeleccionada);
+                    }
                 }
             }
         });//Cierre del método
@@ -148,7 +175,7 @@ public class Interfaz extends javax.swing.JFrame {
              * Método que dada una casilla seleccionada actualiza su texto poniendo una bandera siempre y cuando la cantidad de banderas colocadas no supere al de las minas.
              */
             public void actionPerformed(ActionEvent e) {
-                //Verificamos que la cantidad de banderas no supere al de las minas
+                
                 if(banderasPuestas >= getIntrodMinas()){
                     JOptionPane.showMessageDialog(null, "La cantidad de banderas no puede exceder al de las minas.");
                     casillaSeleccionada.setSelected(false);
@@ -200,24 +227,13 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });//Cierre del método
         
-        
-        dfs.addActionListener(new ActionListener() {
-            @Override
-            /**
-             * Método que 
-             */
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "El botón funciona");
-            }
-        });
-        
         guardar.addActionListener(new ActionListener() {
             @Override
             /**
-             * Método que 
+             * Método que guarda el estado actual del tablero.
              */
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "El botón funciona");
+                
             }
         });//Cierre del método
     }//Cierre del constructor    
@@ -277,33 +293,107 @@ public class Interfaz extends javax.swing.JFrame {
      */    
     private void PonerMinas(Casilla[][] tablero, int filas, int columnas, int minas) {
         Random random = new Random();
-        int minasPuestas = 0; 
-        Lista listaMinas = new Lista(); 
-            while (minasPuestas < minas) { 
-                int fila = random.nextInt(filas); 
-                int columna = random.nextInt(columnas); 
-                if (tablero[fila][columna].getTieneMina() == false) { 
-                    tablero[fila][columna].setTieneMina(true); 
-                    listaMinas.InsertarAlFinal(tablero[fila][columna]);
-                    minasPuestas++; 
-                }
+        listaMinas = new Lista();
+        int minasPuestas = 0;  
+        while (minasPuestas < minas) { 
+            int fila = random.nextInt(filas); 
+            int columna = random.nextInt(columnas); 
+            if (tablero[fila][columna].getTieneMina() == false) { 
+                tablero[fila][columna].setTieneMina(true); 
+                listaMinas.InsertarAlFinal(tablero[fila][columna]);
+                minasPuestas++; 
             }
+        }
     }//Cierre del método
     
     /**
-     * Método que 
+     * Método que busca si hay minas adyacentes y desabilita la casilla.
+     * @param casilla
      */
-    public void BFS(){
-        
+    private void BFS(Casilla casilla) {
+        Cola cola = new Cola();
+        cola.encolar(casilla);
+
+        while (!cola.estaVacia()) {
+            Casilla actual = cola.desencolar();
+                int minasAdyacentes = contarMinasAdyacentes(actual);
+                actual.setText(String.valueOf(minasAdyacentes));
+                actual.setEnabled(false);
+
+                if (minasAdyacentes == 0) {
+                    Lista adyacentes = actual.getCasillasAdyacentes();
+                    Casilla adyacente = adyacentes.getFirst();
+                    while (adyacente != null) {
+                        if (adyacente.isEnabled()) {
+                            cola.encolar(adyacente);
+                        }
+                        adyacente = adyacente.getNext();
+                    }
+                }
+        }
     }
     
     /**
-     * Método que 
+     * Método que busca minas adyacentes y desabilita la casilla.
+     * @param casilla
      */
-    public void DFS(){
-        
+    private void DFS(Casilla casilla) {
+        int minasAdyacentes = contarMinasAdyacentes(casilla);
+        casilla.setText(String.valueOf(minasAdyacentes));
+        casilla.setEnabled(false);
+
+        if (minasAdyacentes == 0) {
+            Lista adyacentes = casilla.getCasillasAdyacentes();
+            Casilla actual = adyacentes.getFirst();
+            while (actual != null) {
+                if (actual.isEnabled() && !actual.getText().equals("0")) {
+                //if (actual.isEnabled()) {
+                    DFS(actual);
+                }
+                actual = actual.getNext();
+            }
+        }
     }
     
+    /**
+     * Método que guarda la cantidad de minas adyacentes en la variable minas.
+     * @param casilla
+     * @return La cantidad de minas adyacentes.
+     */
+    private int contarMinasAdyacentes(Casilla casilla) {
+        int minas = 0;
+        Lista adyacentes = casilla.getCasillasAdyacentes();
+        Casilla aux = adyacentes.getFirst();
+
+        while (aux != null) {
+            if (aux.getTieneMina()) {
+                minas++;
+            }
+            aux = aux.getNext();
+        }
+        return minas;
+    }
+    
+    /**
+     * Método que incrementar el valor de una variable y luego verifica que sea igual al tamaño de la lista ListaMinas.
+     */
+    public void Ganar(){
+        int condicionParaGanar = 0;
+        Casilla aux = listaMinas.getFirst();
+        for(int i=0; i < listaMinas.getTamaño(); i++){
+            if(aux.getTieneBandera()){
+                condicionParaGanar++;
+                aux = aux.getNext();
+            }
+        }
+                
+        if(condicionParaGanar == listaMinas.getTamaño()){
+            JOptionPane.showMessageDialog(null, "FELICIDADES!\nHas ganado el juego.");
+            System.exit(0);
+        }else{
+            JOptionPane.showMessageDialog(null, "Aún no has marcado todas las casillas que tienen mina.");
+        }
+    }
     /**
      * Método que devuelve el valor ingresado en el TextField "introdMinas"
      * @return numMinas Un String convertido a Integer.
@@ -379,4 +469,5 @@ public class Interfaz extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 }//Cierre de la clase
+
 

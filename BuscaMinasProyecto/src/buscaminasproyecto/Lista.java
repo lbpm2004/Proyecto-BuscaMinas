@@ -26,8 +26,8 @@ public class Lista {
     }//Cierre del constructor
     
     /**
-     * Método que devuelve un valor booleano al comprobar si el primer nodo de la lista es nulo
-     * @return Valor booleano
+     * Método que devuelve un valor booleano al comprobar si el primer nodo de la lista es nulo.
+     * @return True si no hay nodos en la lista, sino false.
      */
     public boolean EsVacía(){
         return getFirst() == null;
@@ -72,28 +72,41 @@ public class Lista {
     }//Cierre del método
     
     /**
-     * Getters y Setters de los atributos de la clase
+     * Devuelve el primer nodo de la lista
      */
     public Casilla getFirst() {
         return first;
     }
-
+    /**
+     * Modifica el primer nodo de la lista
+     * @param first Nuevo nodo que se convertirá en el primero
+     */
     public void setFirst(Casilla first) {
         this.first = first;
     }
-
+    /**
+     * Devuelve el último nodo de la lista
+     */
     public Casilla getLast() {
         return last;
     }
-
+    /**
+     * Modifica el último nodo de la lista
+     * @param last Nuevo nodo que se convertirá en el último
+     */
     public void setLast(Casilla last) {
         this.last = last;
     }
-
+    /**
+     * Devuelve un entero que representa el tamaño de la lista
+     */
     public int getTamaño() {
         return tamaño;
     }
-
+    /**
+     * Cambia el tamaño de la lista
+     * @param tamaño Entero que remplazará al tamaño anteior de la lista.
+     */
     public void setTamaño(int tamaño) {
         this.tamaño = tamaño;
     } 
