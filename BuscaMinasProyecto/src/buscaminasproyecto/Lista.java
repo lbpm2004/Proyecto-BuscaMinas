@@ -7,7 +7,7 @@ package buscaminasproyecto;
 /**
  * Esta clase define obejtos de tipo lista enlazada simple
  * @author Luis Peña
- * @colaboradores 
+ * @colaboradores Fabiana Rodriguez, Leon
  */
 
 public class Lista {
