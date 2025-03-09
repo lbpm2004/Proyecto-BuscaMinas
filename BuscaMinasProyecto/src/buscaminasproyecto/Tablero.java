@@ -55,7 +55,7 @@ private void ponerMinas() {
     }       
 }
 
-/* El método tiene fallas en las líneas 53, 56 y 59 (revisarlo)
+
 private void calcularCantidadMinas() {
     for (int i = 0; i < filas; i++) { //Recorre cada fila  //i es el indice de la fila actual
         for (int j = 0; j < columnas; j++) { //Recorre cada columna  //j es el indice de la columna actual
@@ -79,7 +79,7 @@ private void calcularCantidadMinas() {
         }
     }
 }
-*/
+
 
 public boolean barrerCasilla(int fila, int columna) { //devuelve un boolean y le pasamos fila y columna
     if (minasLugar.get(fila).get(columna)) { //ver si hay una mina en la casilla indicada por fila y columna 
