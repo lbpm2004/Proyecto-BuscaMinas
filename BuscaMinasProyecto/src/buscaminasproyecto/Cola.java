@@ -6,7 +6,7 @@ package buscaminasproyecto;
 
 /**
  *
- * @author Luis Peña, Fabiana Rodriguez, Leon
+ * @author Luis Peña, Fabiana Rodriguez, Drexler Hurtado
  */
 public class Cola {
     // Atributos de la clase
