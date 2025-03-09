@@ -139,9 +139,7 @@ public class Interfaz extends javax.swing.JFrame {
                 Ganar();
             }
         });
-        
-        
-        
+     
         barrer.addActionListener(new ActionListener() {
             @Override
             /**
