@@ -8,7 +8,7 @@ import javax.swing.JToggleButton;
 
 /**
  * Esta clase define objetos de tipo Nodo que heredan de la clase JToggleButton 
- * @author Luis Peña
+ * @author Luis Peña, Fabiana Rodriguez , Drexler Hurtado
  */
 
 public class Casilla extends JToggleButton {
