@@ -13,6 +13,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Esta clase define objetos de tipo JFrame que se encargan de ejecutar toda la lógica del proyecto y hacer posible la visualización e interacción con el usuario 
@@ -42,6 +48,7 @@ public class Interfaz extends javax.swing.JFrame {
     private JButton quitarBandera; 
     private JLabel texto5; 
     private JRadioButton dfs; //Abreviacón de Depth-first search
+    private JButton cargar;
     private JButton guardar; 
     private JButton ganar;
     //ATRIBUTOS DEL CENTER
@@ -80,13 +87,14 @@ public class Interfaz extends javax.swing.JFrame {
         add(lineStart, BorderLayout.LINE_START);
         
         //Generación del LINE_END
-        JPanel lineEnd = new JPanel(new GridLayout(8,1));
+        JPanel lineEnd = new JPanel(new GridLayout(9,1));
         lineEnd.add(texto4 = new JLabel("Opciones para la casilla: "));
         lineEnd.add(barrer = new JButton("Barrer"));
         lineEnd.add(ponerBandera = new JButton("Poner Bandera"));
         lineEnd.add(quitarBandera = new JButton("Quitar Bandera"));
         lineEnd.add(texto5 = new JLabel("Cambiar método de barrido: "));
         lineEnd.add(dfs = new JRadioButton("Depth-first search"));
+        lineEnd.add(cargar = new JButton("Cargar"));
         lineEnd.add(guardar = new JButton("Guardar"));
         lineEnd.add(ganar = new JButton("Ganar"));
         add(lineEnd, BorderLayout.LINE_END);
@@ -231,9 +239,16 @@ public class Interfaz extends javax.swing.JFrame {
              * Método que guarda el estado actual del tablero.
              */
             public void actionPerformed(ActionEvent e) {
-                
+                GuardarEstadoTablero();
             }
         });//Cierre del método
+        
+        cargar.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            CargarEstadoTablero();
+        }
+        });
     }//Cierre del constructor    
     
     /**
@@ -329,7 +344,7 @@ public class Interfaz extends javax.swing.JFrame {
                     }
                 }
         }
-    }
+    }//Cierre método
     
     /**
      * Método que busca minas adyacentes y desabilita la casilla.
@@ -351,7 +366,7 @@ public class Interfaz extends javax.swing.JFrame {
                 actual = actual.getNext();
             }
         }
-    }
+    }//Cierre método
     
     /**
      * Método que guarda la cantidad de minas adyacentes en la variable minas.
@@ -370,7 +385,7 @@ public class Interfaz extends javax.swing.JFrame {
             aux = aux.getNext();
         }
         return minas;
-    }
+    }//Cierre método
     
     /**
      * Método que incrementar el valor de una variable y luego verifica que sea igual al tamaño de la lista ListaMinas.
@@ -391,7 +406,112 @@ public class Interfaz extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Aún no has marcado todas las casillas que tienen mina.");
         }
-    }
+    }//Cierre método
+    
+    /**
+    * Guarda el estado actual del tablero en un archivo CSV.
+    * El usuario puede seleccionar la ubicación y el nombre del archivo usando un JFileChooser.
+    * El archivo CSV incluirá las dimensiones del tablero, así como las casillas barridas, marcadas y con minas.
+    */
+    private void GuardarEstadoTablero(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar estado del tablero");
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+                // Escribir dimensiones del tablero
+                writer.write(tablero.length + "," + tablero[0].length + "\n");
+
+                for (int i = 0; i < tablero.length; i++) {
+                    for (int j = 0; j < tablero[i].length; j++) {
+                        Casilla casilla = tablero[i][j];
+                        String estado = casilla.isEnabled() ? "No barrida" : "Barrida";
+                        String resultado = casilla.getText().isEmpty() ? " " : casilla.getText();
+                        writer.write(String.format("%d,%d,%b,%b,%s,%s\n",
+                                casilla.getFila(),
+                                casilla.getColumna(),
+                                casilla.getTieneMina(),
+                                casilla.getTieneBandera(),
+                                estado,
+                                resultado
+                        ));
+                    }
+                }
+
+                JOptionPane.showMessageDialog(this, "El estado del tablero se ha guardado correctamente.");
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(this, "Error al guardar el archivo: " + ex.getMessage());
+            }
+        }
+    }//Cierre método
+    
+    /**
+    * Carga el estado del tablero desde un archivo CSV seleccionado por el usuario.
+    * El archivo CSV debe contener las dimensiones del tablero y el estado de cada casilla.
+    * Se actualiza la interfaz para mostrar el tablero cargado.
+    */
+    private void CargarEstadoTablero(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Cargar estado del tablero");
+        int userSelection = fileChooser.showOpenDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToLoad = fileChooser.getSelectedFile();
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(fileToLoad))) {
+                String line = reader.readLine(); // Leer la línea que contiene las dimensiones del tablero
+                if (line != null) {
+                    String[] dimensiones = line.split(",");
+                    int filas = Integer.parseInt(dimensiones[0]);
+                    int columnas = Integer.parseInt(dimensiones[1]);
+                    // Inicializar la matriz tablero
+                    tablero = new Casilla[filas][columnas];
+                    if (center != null) {
+                        remove(center);
+                    }
+                    center = new JPanel(new GridLayout(filas, columnas));
+                }
+
+                // Leer el estado del tablero
+                while ((line = reader.readLine()) != null) {
+                    if (!line.trim().isEmpty()) {
+                        String[] data = line.split(",");
+                        int fila = Integer.parseInt(data[0]);
+                        int columna = Integer.parseInt(data[1]);
+                        boolean tieneMina = Boolean.parseBoolean(data[2]);
+                        boolean tieneBandera = Boolean.parseBoolean(data[3]);
+                        String estado = data[4];
+                        String resultado = data[5];
+
+                        // Crear una nueva casilla y asignarla a la matriz
+                        Casilla casilla = new Casilla(fila, columna);
+                        casilla.addActionListener(e -> {
+                            casillaSeleccionada = casilla;
+                        });
+                        casilla.setTieneMina(tieneMina);
+                        casilla.setTieneBandera(tieneBandera);
+                        if (!estado.equals("No barrida")) {
+                            casilla.setText(resultado);
+                            casilla.setEnabled(false);
+                        }
+                        tablero[fila][columna] = casilla;
+                        center.add(tablero[fila][columna]);
+                    }
+                }
+                
+                add(center, BorderLayout.CENTER);
+                revalidate(); 
+                repaint(); 
+                JOptionPane.showMessageDialog(this, "El estado del tablero se ha cargado correctamente.");
+            } catch (IOException | NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Error al cargar el archivo: " + ex.getMessage());
+            }
+        }
+    }//Cierre método
+    
     /**
      * Método que devuelve el valor ingresado en el TextField "introdMinas"
      * @return numMinas Un String convertido a Integer.
@@ -399,8 +519,8 @@ public class Interfaz extends javax.swing.JFrame {
     public int getIntrodMinas() {
         int numMinas = Integer.parseInt(introdMinas.getText());
         return numMinas;
-    }
-
+    }//Cierre método
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

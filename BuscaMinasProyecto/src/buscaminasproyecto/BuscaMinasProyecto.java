@@ -7,15 +7,11 @@ package buscaminasproyecto;
 import GUI.Interfaz;
 
 /**
-<<<<<<< HEAD
  * Esta clase se encarga de crear y manejar las instancias de la clase Interfaz.
  * @author Luis Peña
  * @colaboradores Fabiana Rodriguez y Drexler Hurtado
-=======
- *
- * @author Fabiana Rodríguez, Luis Peña
->>>>>>> 4ed7a3b53263010f0811e3a020a83917b7e25637
  */
+
 public class BuscaMinasProyecto {
     
     /**
@@ -28,7 +24,5 @@ public class BuscaMinasProyecto {
         app.setLocationRelativeTo(null); //método para que la interfaz apareczca centrada
         app.setVisible(true); //Permite que la interfaz aparezca
         
-        
     }
-    
 }
